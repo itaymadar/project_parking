@@ -1,0 +1,20 @@
+services:
+  web:
+    image: nginx:latest
+    container_name: smart-parking-web
+    ports:
+      - "8080:80"
+    networks:
+      - parking-network
+
+  storage:
+    image: httpd:latest
+    container_name: smart-parking-storage
+    volumes:
+      - ./images:/usr/local/apache2/htdocs/images
+    networks:
+      - parking-network
+
+networks:
+  parking-network:
+    driver: bridge
