@@ -1,6 +1,6 @@
 services:
   web:
-    image: nginx:latest
+    build: ./nginx
     container_name: smart-parking-web
     ports:
       - "8080:80"
