@@ -11,7 +11,7 @@ services:
     build: ./storage
     container_name: smart-parking-storage
     volumes:
-      - parking-images:/usr/local/apache2/htdocs/images/
+      - parking-images-live:/usr/local/apache2/htdocs/images/
     networks:
       - parking-network
 
@@ -20,4 +20,9 @@ networks:
     driver: bridge
 
 volumes:
-  parking-images:
+  parking-images-live:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/itaym/projects/smart-parking/storage/images
