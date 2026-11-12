@@ -1,0 +1,28 @@
+services:
+  web:
+    build: ./nginx
+    container_name: smart-parking-web
+    ports:
+      - "8080:80"
+    networks:
+      - parking-network
+
+  storage:
+    build: ./storage
+    container_name: smart-parking-storage
+    volumes:
+      - parking-images-live:/usr/local/apache2/htdocs/images/
+    networks:
+      - parking-network
+
+networks:
+  parking-network:
+    driver: bridge
+
+volumes:
+  parking-images-live:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/itaym/projects/smart-parking/storage/images

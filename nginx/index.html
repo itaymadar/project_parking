@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Parking | ניהול חניון</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <span class="logo-icon">P</span>
+            <div>
+                <h1>Smart Parking</h1>
+                <p>מערכת ניהול חניון חכמה</p>
+            </div>
+        </div>
+        <span class="system-status">● המערכת פעילה</span>
+    </header>
+
+    <main class="container">
+
+        <section class="welcome">
+            <div>
+                <h2>לוח הבקרה</h2>
+                <p>סקירה כללית של מצב החניון</p>
+            </div>
+            <div class="date">ניהול חניון חכם</div>
+        </section>
+
+        <section class="stats">
+            <article class="stat-card">
+                <span>סה"כ מקומות חניה</span>
+                <strong id="total-spaces">100</strong>
+            </article>
+
+            <article class="stat-card occupied">
+                <span>מקומות תפוסים</span>
+                <strong id="occupied-spaces">64</strong>
+            </article>
+
+            <article class="stat-card available">
+                <span>מקומות פנויים</span>
+                <strong id="available-spaces">36</strong>
+            </article>
+        </section>
+
+        <!-- Unique Feature: Parking Traffic Simulator -->
+        <section class="parking-control">
+            <div class="section-heading">
+                <div>
+                    <h2>ניהול תנועת רכבים</h2>
+                    <p>סימולציה של כניסת ויציאת רכבים מהחניון</p>
+                </div>
+            </div>
+
+            <div class="occupancy-info">
+                <span>אחוז תפוסה</span>
+                <strong id="occupancy-percent">64%</strong>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="occupancy-bar"></div>
+            </div>
+
+            <div id="parking-alert" class="parking-alert" role="status" aria-live="polite">
+                החניון פעיל ויש מקומות פנויים
+            </div>
+
+            <div class="parking-actions">
+                <button id="entry-btn" class="parking-btn entry-btn">
+                    + כניסת רכב
+                </button>
+
+                <button id="exit-btn" class="parking-btn exit-btn">
+                    - יציאת רכב
+                </button>
+            </div>
+
+            <p class="simulation-note">
+                שימו לב: מדובר בסימולציה לצורכי הדגמה. הנתונים מתאפסים ברענון הדף.
+            </p>
+        </section>
+
+        <section class="vehicles">
+            <div class="section-heading">
+                <div>
+                    <h2>רכבים בחניון</h2>
+                    <p>תמונות המאוחסנות בשרת Apache</p>
+                </div>
+                <span class="vehicle-count">1 רכב לדוגמה</span>
+            </div>
+
+            <div class="vehicle-grid">
+                <article class="vehicle-card">
+                    <img src="/images/car1.jpg" alt="תמונת רכב בחניון">
+                    <div class="vehicle-info">
+                        <span class="vehicle-label">רכב מספר 1</span>
+                        <h3>רכב בחניון</h3>
+                        <p>תמונה: car1.jpg</p>
+                        <span class="status">נמצא בחניון</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        Smart Parking Management System
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
