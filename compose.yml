@@ -8,13 +8,16 @@ services:
       - parking-network
 
   storage:
-    image: httpd:latest
+    build: ./storage
     container_name: smart-parking-storage
     volumes:
-      - ./images:/usr/local/apache2/htdocs/images
+      - parking-images:/usr/local/apache2/htdocs/images/
     networks:
       - parking-network
 
 networks:
   parking-network:
     driver: bridge
+
+volumes:
+  parking-images:
