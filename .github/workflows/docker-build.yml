@@ -3,9 +3,7 @@ name: Smart Parking - Docker Build CI
 
 on:
   push:
-    branches:
-      - main
-      - devops-infrastructure
+
 
   pull_request:
     branches:
