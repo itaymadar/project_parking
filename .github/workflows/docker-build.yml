@@ -1,17 +1,18 @@
-
-name: Smart Parking - Docker Build CI
+name: Smart Parking - Docker Build and Publish
 
 on:
   push:
-
 
   pull_request:
     branches:
       - main
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
-  docker-build:
-    name: Build Docker Images
+  docker:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,6 +22,52 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker Compose services
+      - name: Build Docker Compose services on Pull Request
+        if: github.event_name == 'pull_request'
         run: docker compose build
 
+      - name: Login to GitHub Container Registry
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Web image tags
+        if: github.event_name == 'push'
+        id: meta-web
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}-web
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,prefix=sha-
+
+      - name: Build and Push Web image
+        if: github.event_name == 'push'
+        uses: docker/build-push-action@v6
+        with:
+          context: ./nginx
+          push: true
+          tags: ${{ steps.meta-web.outputs.tags }}
+          labels: ${{ steps.meta-web.outputs.labels }}
+
+      - name: Generate Storage image tags
+        if: github.event_name == 'push'
+        id: meta-storage
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}-storage
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,prefix=sha-
+
+      - name: Build and Push Storage image
+        if: github.event_name == 'push'
+        uses: docker/build-push-action@v6
+        with:
+          context: ./storage
+          push: true
+          tags: ${{ steps.meta-storage.outputs.tags }}
+          labels: ${{ steps.meta-storage.outputs.labels }}
